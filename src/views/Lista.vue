@@ -87,20 +87,20 @@ export default {
       }
     },
     rowClick (row) {
-      this.$message('row clicked')
-      console.log('row clicked', row.site)
+      // this.$message('row clicked')
+      // console.log('row clicked', row.site)
     },
     handleSelect (selection, row) {
-      console.log('handleSelect', selection, row)
+      // console.log('handleSelect', selection, row)
     },
     handleAllSelect (selection) {
-      console.log('handleAllSelect', selection)
+      // console.log('handleAllSelect', selection)
     },
     handleCurrentRowChange (currentRow, oldCurrentRow) {
-      console.log('handleCurrentRowChange', currentRow, oldCurrentRow)
+      // console.log('handleCurrentRowChange', currentRow, oldCurrentRow)
     },
     handleFilterDataChange (filteredData) {
-      console.log('handleFilterDataChange', filteredData)
+      // console.log('handleFilterDataChange', filteredData)
       this.filteredData = filteredData
     }
     // deletarEmpresa (event) {
