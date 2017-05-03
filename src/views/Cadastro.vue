@@ -1,129 +1,39 @@
 <template>
-  <div class="container">
-    <h2>Nova Empresa</h2>
-    <div class="field">
-  <label class="label">Name</label>
-  <p class="control">
-    <input class="input" type="text" placeholder="Text input">
-  </p>
-</div>
-
-<div class="field">
-  <label class="label">Username</label>
-  <p class="control has-icons-left has-icons-right">
-    <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-    <span class="icon is-small is-left">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fa fa-check"></i>
-    </span>
-  </p>
-  <p class="help is-success">This username is available</p>
-</div>
-
-<div class="field">
-  <label class="label">Email</label>
-  <p class="control has-icons-left has-icons-right">
-    <input class="input is-danger" type="text" placeholder="Email input" value="hello@">
-    <span class="icon is-small is-left">
-      <i class="fa fa-envelope"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fa fa-warning"></i>
-    </span>
-  </p>
-  <p class="help is-danger">This email is invalid</p>
-</div>
-
-<div class="field">
-  <label class="label">Subject</label>
-  <p class="control">
-    <span class="select">
-      <select>
-        <option>Select dropdown</option>
-        <option>With options</option>
-      </select>
-    </span>
-  </p>
-</div>
-
-<div class="field">
-  <label class="label">Message</label>
-  <p class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
-  </p>
-</div>
-
-<div class="field">
-  <p class="control">
-    <label class="checkbox">
-      <input type="checkbox">
-      I agree to the <a href="#">terms and conditions</a>
-    </label>
-  </p>
-</div>
-
-<div class="field">
-  <p class="control">
-    <label class="radio">
-      <input type="radio" name="question">
-      Yes
-    </label>
-    <label class="radio">
-      <input type="radio" name="question">
-      No
-    </label>
-  </p>
-</div>
-
-<div class="field is-grouped">
-  <p class="control">
-    <button class="button is-primary">Submit</button>
-  </p>
-  <p class="control">
-    <button class="button is-link">Cancel</button>
-  </p>
-</div>
-
-    <form ref="form" class="form-inline" v-on:submit.prevent="adcionarEmpresa">
-      <div class="form-group">
-        <label for="fantasia">Nome*:</label>
-        <input required type="text" ref="fantasia" v-model="novaEmpresa.fantasia" class="form-control"></input>
-      </div>
-      <div class="form-group">
-        <label for="estado">Estado*:</label>
-        <input required type="text" ref="estado" v-model="novaEmpresa.estado" class="form-control"></input>
-      </div>
-      <br/>
-      <br/>
-      <div class="form-group">
-        <label for="site">Site:</label>
-        <input type="text" ref="site" v-model="novaEmpresa.site" class="form-control"></input>
-      </div>
-      <div class="form-group">
-        <label for="site">Tags:</label>
-        <input type="text" ref="site" v-model="novaEmpresa.tags" class="form-control"></input>
-      </div>
-      <p><small>* obrigatórios</small></p>
-      <input type="submit" class="btn btn-primary" value="Enviar"></input>
-    </form>
+  <div class="container cadastro">
+    <div class="cadastro__form">
+      <el-form ref="novaEmpresa" :rules="rules" :model="novaEmpresa" label-width="120px">
+        <el-form-item label="Nome Fantasia" prop="fantasia">
+          <el-input v-model="novaEmpresa.fantasia"></el-input>
+        </el-form-item>
+        <el-form-item label="Estado" prop="estado">
+          <el-input v-model="novaEmpresa.estado"></el-input>
+        </el-form-item>
+        <el-form-item label="Contato" prop="site">
+          <el-input v-model="novaEmpresa.site"></el-input>
+        </el-form-item>
+        <el-form-item label="Atuação" prop="ators">
+          <el-select v-model="novaEmpresa.atores" placeholder="Selecione sua atuação">
+            <el-option
+              v-for="item in atores"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          <p v-if="novaEmpresa.atores">{{ atores.filter(ator => ator.value === novaEmpresa.atores)[0].desc }}</p>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('novaEmpresa')">Criar</el-button>
+          <el-button @click="resetForm('novaEmpresa')">Resetar</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
-// Distribuidores: Divulgam, exibem e investem nas plataformas disponíveis, no marketing e realizam curadoria dos conteúdos do mercado.
-
-// Proponentes: Buscam entender e satisfazer suas demandas midiáticas através do mercado criativo
-
-// Realizadores: trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização
-
-// Fornecedores: Realizam diversos serviços relacionados aos projetos do mercado criativo
-
-// Capacitadores: estudam e preparam o mercado criativo e as técnicas relacionadas
 
 import { db } from '@/firebase.js'
-import dummy from '@/dummy.json'
 
 const empresasRef = db.ref('empresas')
 
@@ -131,38 +41,77 @@ export default {
   name: 'Cadastro',
   data () {
     return {
+      atores: [
+        {
+          label: 'Distribuidora',
+          value: 'Distribuidora',
+          desc: 'Divulgam, exibem e investem nas plataformas disponíveis, no marketing e realizam curadoria dos conteúdos do mercado.'
+        }, {
+          label: 'Proponente',
+          value: 'Proponente',
+          desc: 'Buscam entender e satisfazer suas demandas midiáticas através do mercado criativo'
+        }, {
+          label: 'Realizadora',
+          value: 'Realizadora',
+          desc: 'trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização.'
+        }, {
+          label: 'Fornecedora',
+          value: 'Fornecedora',
+          desc: 'Realizam diversos serviços relacionados aos projetos do mercado criativo.'
+        }, {
+          label: 'Capacitadora',
+          value: 'Capacitadora',
+          desc: 'Estudam e preparam o mercado criativo e as técnicas relacionadas.'
+        }
+      ],
+      rules: {
+        fantasia: [
+          { required: true, message: 'Campo obrigatório', trigger: 'change' }
+        ],
+        estado: [
+          { required: true, message: 'Campo obrigatório', trigger: 'change' }
+        ],
+        site: [
+          { required: true, message: 'Campo obrigatório', trigger: 'change' }
+        ],
+        atores: [
+          { required: true, message: 'Campo obrigatório', trigger: 'change' }
+        ]
+      },
       novaEmpresa: {
         fantasia: '',
         estado: '',
         site: '',
-        tags: ''
+        atores: ''
       }
     }
   },
   methods: {
-    adcionarEmpresa () {
-      dummy.map(it => {
-        empresasRef.push(it)
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          empresasRef.push(this.novaEmpresa)
+          this.$message('Empresa adcionada!')
+          this.$refs[formName].resetFields()
+        } else {
+          this.$message('Verique os campos obrigatórios')
+          return false
+        }
       })
-      // empresasRef.push(novaEmpresa)
-      this.$message('Empresa adcionada!')
-
-      this.novaEmpresa.fantasia = ''
-      this.novaEmpresa.estado = ''
-      this.novaEmpresa.site = ''
-      this.novaEmpresa.tags = ''
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="css">
+.container.cadastro {
+  margin-top:50px;
+  margin-bottom:50px;
+}
+.cadastro__form {
+  max-width: 800px;
+  margin: auto;
 }
 </style>

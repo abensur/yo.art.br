@@ -1,5 +1,5 @@
 <template>
-  <div class="container profile">
+  <div class="container lista">
     <div class="spacer"></div>
     <data-tables
       :actions-def='getExportActionsDef()'
@@ -88,7 +88,7 @@ export default {
     },
     rowClick (row) {
       this.$message('row clicked')
-      console.log('row clicked', row)
+      console.log('row clicked', row.site)
     },
     handleSelect (selection, row) {
       console.log('handleSelect', selection, row)
@@ -115,41 +115,8 @@ export default {
 }
 </script>
 <style lang="css">
-body {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-}
-.container.profile {
+.container.lista {
   margin-top:50px;
   margin-bottom:50px;
 }
-.profile-heading {
-  margin: 20px 0;
-  padding-bottom: 30px;
-}
-.profile-heading .name {
-  border-right: 1px solid #f1f1f1;
-  margin:-30px 0;
-  padding: 40px 30px 0 30px;
-}
-.profile-heading .followers, .profile-heading .following {
-  border-right: 1px solid #f1f1f1;
-  margin:-30px 0;
-  padding: 70px 30px;
-}
-.profile-heading .stat-val {
-  font-size: 35px;
-  font-weight: bold;
-}
-.tagline {
-  padding:20px 0;
-  font-size: 16px;
-  line-height: 1.4;
-}
-p.title.is-bold {
-  font-weight: bold;
-}
-/*table th:nth-last-child(2),
-table td:last-child {
-  display: none;
-}*/
 </style>
