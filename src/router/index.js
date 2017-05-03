@@ -8,21 +8,22 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'Cadastro de empresa',
-      component: Cadastro
-    },
-    {
-      path: '/lista',
-      name: 'Lista de empresas',
-      component: Lista
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    }
-  ]
+  linkActiveClass: 'is-active',
+  routes: [{
+    path: '/',
+    name: 'default',
+    redirect: 'lista'
+  }, {
+    path: '/lista',
+    name: 'lista',
+    component: Lista
+  }, {
+    path: '/cadastro',
+    name: 'cadastro',
+    component: Cadastro
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }]
 })

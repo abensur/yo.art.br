@@ -1,16 +1,24 @@
 import Vue from 'vue'
-import App from './App'
 import VueFire from 'vuefire'
-import router from './router'
 
-Vue.config.productionTip = false
+import App from '@/App'
+import store from '@/store'
+import router from '@/router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import DataTables from 'vue-data-tables'
+import 'bulma'
 
 Vue.use(VueFire)
+Vue.use(ElementUI)
+Vue.use(DataTables)
 
+Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

@@ -1,11 +1,8 @@
 <template>
   <div class="container">
-    <div class="page-header">
-      <h1>Vue firebase</h1>
-    </div>
+    <h2>Login</h2>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3>Login</h3>
       </div>
       <div class="panel-body">
         <form ref="form" class="form-inline" v-on:submit.prevent="Login">
@@ -26,36 +23,29 @@
 </template>
 
 <script>
-import { firebaseApp } from '@/firebase.js'
-// import toastr from 'toastr'
-
-const auth = firebaseApp.auth()
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Login',
   data () {
     return {
-      email: '',
-      password: '',
-      user: ''
+      email: 'comercial@yodeley.com.br',
+      password: 'nelson42'
     }
   },
+  computed: {
+    ...mapState(['user'])
+  },
   methods: {
+    ...mapActions([
+      'LOGIN',
+      'LOGOUT'
+    ]),
     Login () {
-      const promise = auth.signInWithEmailAndPassword(this.email, this.password)
-      promise.catch(e => console.log(e.message))
-      auth.onAuthStateChanged(this.handleAuth)
+      this.LOGIN({ email: this.email, password: this.password })
     },
     Logout () {
-      auth.signOut()
-      this.user = ''
-    },
-    handleAuth (firebaseUser) {
-      if (firebaseUser) {
-        this.user = firebaseUser
-      } else {
-        console.log('desconectado...')
-      }
+      this.LOGOUT()
     }
   }
 }
