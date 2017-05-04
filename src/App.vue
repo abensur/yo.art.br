@@ -5,7 +5,7 @@
         <div class="container">
           <div class="nav-left">
             <a class="nav-item" href="../index.html">
-              <img src="#" alt="Projecta">
+              <h1> Pequenos atores da economia criativa brasileira </h1>
             </a>
           </div>
           <span class="nav-toggle" @click="toggleMenu">
