@@ -57,7 +57,7 @@ export default {
         }, {
           label: 'Fornecedora',
           value: 'Fornecedora',
-          desc: 'Executam diversos tipos de serviços relacionados aos projetos do mercado criativo..'
+          desc: 'Executam diversos tipos de serviços relacionados aos projetos do mercado criativo.'
         }, {
           label: 'Capacitadora',
           value: 'Capacitadora',
