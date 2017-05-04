@@ -53,11 +53,11 @@ export default {
         }, {
           label: 'Realizadora',
           value: 'Realizadora',
-          desc: 'trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização.'
+          desc: 'Trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização.'
         }, {
           label: 'Fornecedora',
           value: 'Fornecedora',
-          desc: 'Realizam diversos serviços relacionados aos projetos do mercado criativo.'
+          desc: 'Executam diversos tipos de serviços relacionados aos projetos do mercado criativo..'
         }, {
           label: 'Capacitadora',
           value: 'Capacitadora',
