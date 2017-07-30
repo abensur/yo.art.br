@@ -5,7 +5,7 @@
         <div class="container">
           <div class="nav-left">
             <a class="nav-item" href="../index.html">
-              <h1> Pequenos atores da economia criativa brasileira </h1>
+              <img height="40px" src="./assets/mercadocriativo.png" alt="Mercado Criativo" />
             </a>
           </div>
           <span class="nav-toggle" @click="toggleMenu">
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 body {
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -61,4 +61,37 @@ body {
   opacity: 0
 }
 
+.nav {
+  height: 5rem !important;
+  background-color: #7832A1 !important;
+}
+.nav-item {
+  color: #fff !important;
+  font-weight: 500 !important;
+}
+.nav-toggle {
+  height: 5rem !important;
+}
+.nav-toggle:hover {
+  background-color: darken(#7832A1, 10) !important;
+}
+.nav-toggle span {
+  background-color: #fff !important;
+  width: 1rem !important;
+  height: 2px !important;
+}
+.nav-right.nav-menu.is-active .nav-item {
+  color: #666 !important;
+}
+.nav-item a:not(.button).is-tab.is-active, a.nav-item:not(.button).is-tab.is-active {
+  border-bottom-color: #fff !important;
+}
+.nav-left .nav-item {
+  width: 5rem;
+}
+.nav-left .nav-item img {
+  width: 100%;
+  /* min-width: 100%; */
+  max-height: 100%;
+}
 </style>

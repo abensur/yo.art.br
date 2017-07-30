@@ -118,6 +118,17 @@ export default {
 }
 </script>
 <style lang="scss">
+.el-button--primary {
+  background: #7832A1 !important;
+  border-color: #7832A1 !important;
+}
+.el-pager li.active {
+  background: #7832A1 !important;
+  border-color: #7832A1 !important;
+}
+.nav-toggle span {
+  background-color: #fff !important;
+}
 .container.lista {
   margin-top:50px;
   margin-bottom:50px;
