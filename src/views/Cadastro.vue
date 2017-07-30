@@ -62,6 +62,10 @@ export default {
           label: 'Capacitadora',
           value: 'Capacitadora',
           desc: 'Estudam e preparam o mercado criativo e as técnicas relacionadas.'
+        }, {
+          label: 'Exibidora',
+          value: 'Exibidora',
+          desc: 'Fornece espaço e suporte para exibição de obras.'
         }
       ],
       rules: {

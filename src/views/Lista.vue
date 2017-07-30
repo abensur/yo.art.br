@@ -10,7 +10,7 @@
       @filtered-data="handleFilterDataChange">
       <el-table-column prop="fantasia" label="Nome" sortable="custom"></el-table-column>
       <el-table-column prop="estado" label="Estado" sortable="custom"></el-table-column>
-      <el-table-column prop="site" label="Contato" sortable="custom"></el-table-column>
+      <el-table-column prop="site" label="Contato" sortable="custom" :width="300"></el-table-column>
       <el-table-column prop="atores" label="Atuação" sortable="custom"></el-table-column>
     </data-tables>
   </div>
@@ -70,19 +70,22 @@ export default {
         props: 'atores',
         def: [{
           'code': 'Distribuidora',
-          'name': 'Distr.'
+          'name': 'Distribuidora'
         }, {
           'code': 'Proponente',
-          'name': 'Prop.'
+          'name': 'Proponente'
         }, {
           'code': 'Realizadora',
-          'name': 'Reali.'
+          'name': 'Realizadora'
         }, {
           'code': 'Fornecedora',
-          'name': 'Forne.'
+          'name': 'Fornecedora'
         }, {
           'code': 'Capacitadora',
-          'name': 'Cap.'
+          'name': 'Capacitadora'
+        }, {
+          'code': 'Exibidora',
+          'name': 'Exibidora'
         }]
       }
     },
@@ -114,9 +117,79 @@ export default {
   }
 }
 </script>
-<style lang="css">
+<style lang="scss">
 .container.lista {
   margin-top:50px;
   margin-bottom:50px;
+
+  .tool-bar {
+    display: flex;
+    flex-flow: row wrap;
+    .actions {
+      flex: 0 auto;
+      margin-right: auto;
+      order: 1;
+    }
+
+    .search {
+      flex: 0 auto;
+      margin-left: auto;
+      order: 2;
+    }
+
+    .filters {
+      flex: 0 100%;
+      width: 100%;
+      order: 3;
+      text-align: right;
+    }
+
+
+  }
+}
+@media screen and (max-width: 1008px) {
+  .container {
+    padding: 0 1rem;
+  }
+  .container.lista {
+    margin-top: 1rem;
+    .tool-bar {
+      .actions {
+        flex: 0 100%;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .search {
+        flex: 0 100%;
+      }
+      .filters {
+        text-align: left;
+        .el-checkbox-group {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-around;
+        }
+        .el-checkbox {
+          margin: 0;
+        }
+        .el-checkbox__label {
+          font-size: 11px;
+        }
+      }
+    }
+    th .cell {
+      font-size: 11px;
+      position: relative;
+      .caret-wrapper {
+        position: absolute;
+        top: 50%;
+        right: 4px;
+        transform: translateY(-50%);
+      }
+    }
+    td .cell {
+      font-size: 10px;
+    }
+  }
 }
 </style>
