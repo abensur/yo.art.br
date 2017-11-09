@@ -4,7 +4,7 @@
     <el-table
       :data="empresas"
       style="width: 100%">
-      <el-table-column prop="fantasia" label="Fantasia" sortable width="110px" />
+      <el-table-column prop="fantasia" label="Fantasia" sortable width="180px" />
       <el-table-column prop="estado" label="Estado" sortable width="110px" />
       <el-table-column prop="contato" label="Contato" width="180px" >
         <template slot-scope="scope">
