@@ -1,28 +1,40 @@
 <template>
   <div class="container lista">
     <div class="spacer"></div>
-    <data-tables
-      :actions-def='getExportActionsDef()'
-      :checkbox-filter-def='getCheckFilterDef()'
+    <el-table
       :data="empresas"
-      :has-action-col='false'
-      @row-click="rowClick"
-      @filtered-data="handleFilterDataChange">
-      <el-table-column prop="fantasia" label="Nome" sortable="custom"></el-table-column>
-      <el-table-column prop="estado" label="Estado" sortable="custom"></el-table-column>
-      <el-table-column prop="site" label="Contato" sortable="custom" :width="300"></el-table-column>
-      <el-table-column prop="atores" label="Atuação" sortable="custom"></el-table-column>
-    </data-tables>
+      style="width: 100%">
+      <el-table-column prop="fantasia" label="Fantasia" sortable width="110px" />
+      <el-table-column prop="estado" label="Estado" sortable width="110px" />
+      <el-table-column prop="contato" label="Contato" width="180px" >
+        <template slot-scope="scope">
+          <a v-if="isEmail(scope.row.contato)" :href="'mailto:' + scope.row.contato">{{ scope.row.contato }}</a>
+          <span v-else>{{ scope.row.contato }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="atores" label="Atuação" sortable width="130px" />
+      <el-table-column prop="portfolio" label="Portfólio" width="180px">
+        <template slot-scope="scope">
+          <a v-if="isLink(scope.row.portfolio)" :href="scope.row.portfolio" target="_blank">{{ scope.row.portfolio }}</a>
+          <span v-else>{{ scope.row.portfolio }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="conhecimentos" label="Conhecimentos">
+        <template slot-scope="scope">
+          <span>{{ scope.row.conhecimentos.join(', ') }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-undef */
 import { db } from '@/firebase.js'
 import { mapState } from 'vuex'
 import CsvExport from '../utils/CsvExport'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+
 locale.use(lang)
 
 const empresasRef = db.ref('empresas')
@@ -44,6 +56,16 @@ export default {
     }
   },
   methods: {
+    isLink (string) {
+      const linkEXP = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi
+      const linkREGEX = new RegExp(linkEXP)
+      return string.match(linkREGEX)
+    },
+    isEmail (string) {
+      const emailEXP = /\S+@\S+/
+      const emailREGEX = new RegExp(emailEXP)
+      return string.match(emailREGEX)
+    },
     getExportActionsDef () {
       const columns = ['fantasia', 'estado', 'site', 'atores']
       const columnNames = ['Nome', 'Estado', 'Site', 'Atuação']
@@ -88,32 +110,7 @@ export default {
           'name': 'Exibidora'
         }]
       }
-    },
-    rowClick (row) {
-      // this.$message('row clicked')
-      // console.log('row clicked', row.site)
-    },
-    handleSelect (selection, row) {
-      // console.log('handleSelect', selection, row)
-    },
-    handleAllSelect (selection) {
-      // console.log('handleAllSelect', selection)
-    },
-    handleCurrentRowChange (currentRow, oldCurrentRow) {
-      // console.log('handleCurrentRowChange', currentRow, oldCurrentRow)
-    },
-    handleFilterDataChange (filteredData) {
-      // console.log('handleFilterDataChange', filteredData)
-      this.filteredData = filteredData
     }
-    // deletarEmpresa (event) {
-    //   if (this.user) {
-    //     empresasRef.child(event.currentTarget.dataset.key).remove()
-    //     toastr.success('Empresa removida')
-    //   } else {
-    //     toastr.error('Sem permissão')
-    //   }
-    // }
   }
 }
 </script>

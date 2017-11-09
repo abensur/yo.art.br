@@ -8,11 +8,17 @@
         <el-form-item label="Estado" prop="estado">
           <el-input v-model="novaEmpresa.estado"></el-input>
         </el-form-item>
-        <el-form-item label="Contato" prop="site">
-          <el-input v-model="novaEmpresa.site"></el-input>
+        <el-form-item label="Contato" prop="contato">
+          <el-input v-model="novaEmpresa.contato"></el-input>
+        </el-form-item>
+        <el-form-item label="Portfólio" prop="portfolio">
+          <el-input v-model="novaEmpresa.portfolio"></el-input>
         </el-form-item>
         <el-form-item label="Atuação" prop="ators">
-          <el-select v-model="novaEmpresa.atores" placeholder="Selecione sua atuação">
+          <el-select
+            v-model="novaEmpresa.atores"
+            @change="clearKnowledges"
+            placeholder="Selecione sua atuação">
             <el-option
               v-for="item in atores"
               :key="item.value"
@@ -20,7 +26,20 @@
               :value="item.value">
             </el-option>
           </el-select>
-          <p v-if="novaEmpresa.atores">{{ atores.filter(ator => ator.value === novaEmpresa.atores)[0].desc }}</p>
+          <p v-if="novaEmpresa.atores">{{ atores.find(ator => ator.value === novaEmpresa.atores).desc }}</p>
+        </el-form-item>
+        <el-form-item label="Conhecimentos" prop="knowledges" v-if="novaEmpresa.atores">
+          <el-select
+            multiple
+            v-model="novaEmpresa.conhecimentos"
+            placeholder="Areas de atuação">
+            <el-option
+              v-for="item in atores.find(ator => ator.value === novaEmpresa.atores).knowledges"
+              :key="item"
+              :label="item"
+              :value="item">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('novaEmpresa')">Criar</el-button>
@@ -45,27 +64,33 @@ export default {
         {
           label: 'Distribuidora',
           value: 'Distribuidora',
-          desc: 'Divulgam, exibem e investem nas plataformas disponíveis, no marketing e realizam curadoria dos conteúdos do mercado.'
+          desc: 'Divulgam, exibem e investem nas plataformas disponíveis, no marketing e realizam curadoria dos conteúdos do mercado.',
+          knowledges: ['Trilhas', 'Filmes', 'Séries', 'Imagens']
         }, {
           label: 'Proponente',
           value: 'Proponente',
-          desc: 'Buscam entender e satisfazer suas demandas midiáticas através do mercado criativo'
+          desc: 'Buscam entender e satisfazer suas demandas midiáticas através do mercado criativo',
+          knowledges: ['Empreendedor', 'Agência', 'Autônomo', 'Dept. de comunicação']
         }, {
           label: 'Realizadora',
           value: 'Realizadora',
-          desc: 'Trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização.'
+          desc: 'Trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização.',
+          knowledges: ['Entrevistas', 'Coberturas', 'Encenações', 'Shows', 'Vinhetas', 'Video Aulas']
         }, {
           label: 'Fornecedora',
           value: 'Fornecedora',
-          desc: 'Executam diversos tipos de serviços relacionados aos projetos do mercado criativo.'
+          desc: 'Executam diversos tipos de serviços relacionados aos projetos do mercado criativo.',
+          knowledges: ['Animação 3D', 'Motion Design', 'Ilustração', 'Edição de som', 'Montagem', 'Câmera', 'Som Direto', 'Trilha sonora', 'Dir. de Arte', 'Roteiro', 'Produção', 'Direção', 'Atuação', 'Iluminação', 'Jurídico', 'Locução']
         }, {
           label: 'Capacitadora',
           value: 'Capacitadora',
-          desc: 'Estudam e preparam o mercado criativo e as técnicas relacionadas.'
+          desc: 'Estudam e preparam o mercado criativo e as técnicas relacionadas.',
+          knowledges: ['Cênicas', 'Fotografia', 'Música', 'Plásticas', 'Pós Produção']
         }, {
           label: 'Exibidora',
           value: 'Exibidora',
-          desc: 'Fornece espaço e suporte para exibição de obras.'
+          desc: 'Fornece espaço e suporte para exibição de obras.',
+          knowledges: ['SVOD', 'TVOD', 'AVOD', 'Audio on Demand', 'Portal', 'Televisão', 'Rádio', 'Cinema', 'Exposição', 'Espaço de Eventos', 'Palco']
         }
       ],
       rules: {
@@ -75,7 +100,7 @@ export default {
         estado: [
           { required: true, message: 'Campo obrigatório', trigger: 'change' }
         ],
-        site: [
+        contato: [
           { required: true, message: 'Campo obrigatório', trigger: 'change' }
         ],
         atores: [
@@ -85,8 +110,10 @@ export default {
       novaEmpresa: {
         fantasia: '',
         estado: '',
-        site: '',
-        atores: ''
+        contato: '',
+        atores: '',
+        portfolio: '',
+        conhecimentos: []
       }
     }
   },
@@ -105,11 +132,14 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    clearKnowledges () {
+      this.novaEmpresa.conhecimentos = []
     }
   }
 }
 </script>
-<style lang="css">
+<style lang="scss">
 .container.cadastro {
   margin-top:50px;
   margin-bottom:50px;
@@ -117,5 +147,15 @@ export default {
 .cadastro__form {
   max-width: 800px;
   margin: auto;
+
+  label {
+    width: 200px !important;
+  }
+  .el-form-item__content {
+    margin-left: 200px !important;
+  }
+  // .el-select__tags {
+  //   max-width: 300px !important;
+  // }
 }
 </style>
