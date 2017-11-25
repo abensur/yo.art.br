@@ -2,26 +2,34 @@
   <div class="container lista">
     <div class="spacer"></div>
     <el-table
+      v-if="empresas.length"
       :data="empresas"
       style="width: 100%">
       <el-table-column prop="fantasia" label="Fantasia" sortable />
       <el-table-column prop="estado" label="Estado" sortable width="110px" />
       <el-table-column prop="contato" label="Contato" width="180px" >
         <template slot-scope="scope">
-          <a v-if="isEmail(scope.row.contato)" :href="'mailto:' + scope.row.contato">{{ scope.row.contato }}</a>
-          <span v-else>{{ scope.row.contato }}</span>
+          <span v-if="scope.row.contato ">
+            <a v-if="isEmail(scope.row.contato)" :href="'mailto:' + scope.row.contato">{{ scope.row.contato }}</a>
+            <span v-else>{{ scope.row.contato }}</span>
+          </span>
+          <span v-else> - </span>
         </template>
       </el-table-column>
       <el-table-column prop="atores" label="Atuação" sortable width="130px" />
       <el-table-column prop="portfolio" label="Portfólio" width="180px">
         <template slot-scope="scope">
-          <a v-if="isLink(scope.row.portfolio)" :href="scope.row.portfolio" target="_blank">{{ scope.row.portfolio }}</a>
-          <span v-else>{{ scope.row.portfolio }}</span>
+          <span v-if="scope.row.portfolio ">
+            <a v-if="isLink(scope.row.portfolio)" :href="scope.row.portfolio" target="_blank">{{ scope.row.portfolio }}</a>
+            <span v-else>{{ scope.row.portfolio }}</span>
+          </span>
+          <span v-else> - </span>
         </template>
       </el-table-column>
       <el-table-column prop="conhecimentos" label="Conhecimentos">
         <template slot-scope="scope">
-          <span>{{ scope.row.conhecimentos.join(', ') }}</span>
+          <span v-if="scope.row.conhecimentos">{{ scope.row.conhecimentos.join(', ') }}</span>
+          <span v-else> - </span>
         </template>
       </el-table-column>
     </el-table>
@@ -97,8 +105,8 @@ export default {
           'code': 'Proponente',
           'name': 'Proponente'
         }, {
-          'code': 'Realizadora',
-          'name': 'Realizadora'
+          'code': 'Produtora',
+          'name': 'Produtora'
         }, {
           'code': 'Fornecedora',
           'name': 'Fornecedora'

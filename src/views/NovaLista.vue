@@ -75,8 +75,8 @@ export default {
           'code': 'Proponente',
           'name': 'Proponente'
         }, {
-          'code': 'Realizadora',
-          'name': 'Realizadora'
+          'code': 'Produtora',
+          'name': 'Produtora'
         }, {
           'code': 'Fornecedora',
           'name': 'Fornecedora'

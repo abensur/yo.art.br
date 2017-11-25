@@ -72,8 +72,8 @@ export default {
           desc: 'Buscam entender e satisfazer suas demandas midiáticas através do mercado criativo',
           knowledges: ['Empreendedor', 'Agência', 'Autônomo', 'Dept. de comunicação']
         }, {
-          label: 'Realizadora',
-          value: 'Realizadora',
+          label: 'Produtora',
+          value: 'Produtora',
           desc: 'Trabalham em todas as etapas dos projetos criativos e subsidiam-se de periodicidade e fidelização.',
           knowledges: ['Entrevistas', 'Coberturas', 'Encenações', 'Shows', 'Vinhetas', 'Video Aulas']
         }, {
