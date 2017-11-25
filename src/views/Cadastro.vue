@@ -6,7 +6,16 @@
           <el-input v-model="novaEmpresa.fantasia"></el-input>
         </el-form-item>
         <el-form-item label="Estado" prop="estado">
-          <el-input v-model="novaEmpresa.estado"></el-input>
+          <el-select
+            v-model="novaEmpresa.estado"
+            placeholder="Selecione">
+            <el-option
+              v-for="(item, index) in estados"
+              :key="index"
+              :label="item"
+              :value="item">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="Contato" prop="contato">
           <el-input v-model="novaEmpresa.contato"></el-input>
@@ -18,7 +27,7 @@
           <el-select
             v-model="novaEmpresa.atores"
             @change="clearKnowledges"
-            placeholder="Selecione sua atuação">
+            placeholder="Selecione">
             <el-option
               v-for="item in atores"
               :key="item.value"
@@ -60,6 +69,7 @@ export default {
   name: 'Cadastro',
   data () {
     return {
+      estados: ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RO', 'RS', 'RR', 'SC', 'SE', 'SP', 'TO'],
       atores: [
         {
           label: 'Distribuidora',

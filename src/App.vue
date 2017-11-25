@@ -14,8 +14,8 @@
             <span></span>
           </span>
           <div class="nav-right nav-menu" v-bind:class="{ 'is-active': menuActive }" >
-            <router-link tag="a" class="nav-item is-tab"  to="lista">lista</router-link>
-            <router-link tag="a" class="nav-item is-tab"  to="cadastro">cadastro</router-link>
+            <router-link tag="a" class="nav-item is-tab"  to="lista">Atores</router-link>
+            <router-link tag="a" class="nav-item is-tab"  to="cadastro">Cadastro</router-link>
           </div>
         </div>
       </nav>
@@ -44,8 +44,8 @@ export default {
 
 <style lang="scss">
 
-body {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+body * {
+  font-family: "Nunito", sans-serif !important;
 }
 
 .fade-enter-active, .fade-leave-active {

@@ -1,23 +1,25 @@
 <template>
   <div class="container lista">
     <div class="spacer"></div>
+    <div id="table">
     <el-table
-      v-if="empresas.length"
       :data="empresas"
-      style="width: 100%">
-      <el-table-column prop="fantasia" label="Fantasia" sortable />
-      <el-table-column prop="estado" label="Estado" sortable width="110px" />
-      <el-table-column prop="contato" label="Contato" width="180px" >
+      style="width: 100%; min-width: 1080px;">
+      <el-table-column prop="fantasia" label="Fantasia" sortable width="280px"/>
+      <el-table-column prop="contato" label="Contato" width="300px" >
         <template slot-scope="scope">
-          <span v-if="scope.row.contato ">
-            <a v-if="isEmail(scope.row.contato)" :href="'mailto:' + scope.row.contato">{{ scope.row.contato }}</a>
-            <span v-else>{{ scope.row.contato }}</span>
+          <span v-if="scope.row.contato || scope.row.estado">
+            <a v-if="isEmail(scope.row.contato)" :href="'mailto:' + scope.row.contato">
+              <span style="color: #666 !important;">{{ scope.row.estado ? scope.row.estado + ' - ' : ''}}</span>
+              {{ scope.row.contato }}
+            </a>
+            <span v-else>{{ scope.row.estado ? scope.row.estado + ' - ' : ''}}{{ scope.row.contato }}</span>
           </span>
           <span v-else> - </span>
         </template>
       </el-table-column>
       <el-table-column prop="atores" label="Atuação" sortable width="130px" />
-      <el-table-column prop="portfolio" label="Portfólio" width="180px">
+      <el-table-column prop="portfolio" label="Portfólio" width="220px">
         <template slot-scope="scope">
           <span v-if="scope.row.portfolio ">
             <a v-if="isLink(scope.row.portfolio)" :href="scope.row.portfolio" target="_blank">{{ scope.row.portfolio }}</a>
@@ -33,6 +35,8 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="spacer"></div>
+    </div>
   </div>
 </template>
 
@@ -42,6 +46,7 @@ import { mapState } from 'vuex'
 import CsvExport from '../utils/CsvExport'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
+import PS from 'perfect-scrollbar'
 
 locale.use(lang)
 
@@ -51,6 +56,7 @@ export default {
   name: 'lista',
   data () {
     return {
+      ps: null,
       empresas: '',
       filteredData: []
     }
@@ -61,6 +67,19 @@ export default {
   firebase: {
     empresas: {
       source: empresasRef
+    }
+  },
+  mounted () {
+    this.ps = new PS('#table')
+  },
+  beforeDestroy () {
+    this.ps = null
+  },
+  watch: {
+    empresas (val) {
+      if (val.length) {
+        // this.ps.update()
+      }
     }
   },
   methods: {
@@ -166,6 +185,9 @@ export default {
 @media screen and (max-width: 1008px) {
   .container {
     padding: 0 1rem;
+  }
+  .spacer {
+    height: 20px;
   }
   .container.lista {
     margin-top: 1rem;
